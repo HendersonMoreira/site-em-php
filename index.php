@@ -6,31 +6,19 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/_config.php');
 
 /**
- * Define i título desta página:
+ * Define o título desta página:
  * 
- * A variável '$page_title' especifica o título da página, que aparece 
- * na tag <title>...</title>. Esta variável não pode ser vazia.
- * 
- * Conforme o case, a tag title terá os seguintes formatos:
- * 
- *  • Na página inicial → <title>Nome do site .:. Slogan do site</title>
- *  • Em páginas estáticas → <title>Nome do site .:. Nome da página</title>
- *  • Na página de artigos → <title>Nome do site .:. Título do artigo</title>
- * 
+ *  → Na página inicial usaremos o 'slogan' do site.
  */
-$page_title = 'Página modelo';
+$page_title = $site_slogan;
 
 /**
  * Define o conteúdo principal desta página:
- * 
- * Esta viarável será exibida dentro da tag <article>...</article>.
  */
 $page_article = '';
 
 /**
  * Define o conteúdo da barra lateral desta página:
- * 
- * Esta variável será exibida na tag <aside>...</aside>.
  */
 $page_aside = '';
 
@@ -53,15 +41,17 @@ SQL;
 // Executa a query:
 $res = $conn->query($sql);
 
+// Formata conteúdo da página:
 $page_article = <<<HTML
 
 <h2>Artigos Recentes</h2>
 
 HTML;
 
-// Loop que lista cada registro recebido:
-while( $art = $res->fetch_assoc() ):
+// Loop que obtém cada registro recebido do banco de dados:
+while ($art = $res->fetch_assoc()) :
 
+    // Inclui cada artigo no conteúdo da página:
     $page_article .= <<<HTML
 
 <div class="art_block" onclick="location.href = '/view/?{$art['art_id']}'">
@@ -74,7 +64,7 @@ while( $art = $res->fetch_assoc() ):
 
 </div>
 
-HTML;  
+HTML;
 
 endwhile;
 
@@ -87,17 +77,19 @@ endwhile;
  */
 require($_SERVER['DOCUMENT_ROOT'] . '/_header.php');
 
-?>
+/**
+ * Exibe o conteúdo da página:
+ */
 
-<article><?php echo $page_article ?></article>
+echo <<<HTML
 
-<aside><?php echo $page_aside ?></aside>
+<article>{$page_article}</article>
 
-<?php
+<aside>{$page_aside}</aside>
+
+HTML;
 
 /**
  * Inclui o rodapé do template nesta página.
  */
 require($_SERVER['DOCUMENT_ROOT'] . '/_footer.php');
-
-?>
