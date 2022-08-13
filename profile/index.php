@@ -47,7 +47,7 @@ $res = $conn->query($sql);
 if($res->num_rows != 1):
 
     // Apaga o cookie:
-    setcookie("{$site_name}_user", '', -1, '/');
+    // setcookie("{$site_name}_user", '', -1, '/');
 
     // Envia para login:
     header('Location: /login');
@@ -100,12 +100,19 @@ HTML;
 
 $page_aside = <<<HTML
 
-<h3>Ações:</h3>
+<h4>Ações:</h4>
 <ul>
     <li><a href="/edit">Editar perfil</a></li>
     <li><a href="/passwd">Trocar senha</a></li>
-    <li><a href="/logout">Logout / Sair</a></li>
+    <li><a href="/avatar">Trocar avatar</a></li>
+</ul>
+<hr>
+<ul>
     <li><a href="/delete">Apagar perfil</a></li>
+</ul>
+<hr>
+<ul>
+    <li><a href="/logout">Logout / Sair</a></li>
 </ul>
 
 HTML;
